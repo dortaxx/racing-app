@@ -37,17 +37,9 @@ function selectRandomHorses(horses, count = 10) {
 }
 
 function calculateRaceSpeed(horse, distance) {
-  // Normalize condition to be between 0.7 and 1.3 (instead of 0.01 to 1.0)
-  // This ensures horses with low condition aren't extremely slow
   const normalizedCondition = 0.7 + (horse.condition / 100) * 0.6
-  
-  // Random factor between 0.8 and 1.2 for race excitement
   const randomFactor = Math.random() * 0.4 + 0.8
-  
-  // Distance factor - longer races are slightly slower
   const distanceFactor = 1000 / distance
-  
-  // Add some extra randomness for exciting finishes
   const raceLuck = Math.random() * 0.3 + 0.85
   
   return normalizedCondition * randomFactor * distanceFactor * raceLuck * 2.5
@@ -119,7 +111,6 @@ export default createStore({
     },
 
     async generateRaceSchedule({ commit, state, dispatch }) {
-      // Ensure horses are generated first
       if (state.horses.length === 0) {
         await dispatch('generateHorses')
       }

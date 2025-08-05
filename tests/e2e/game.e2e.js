@@ -6,14 +6,11 @@ test.describe('Horse Racing Game E2E Tests', () => {
   });
 
   test('should display initial game interface', async ({ page }) => {
-    // Check game controls are present
     await expect(page.locator('[data-test="generate-schedule"]')).toBeVisible();
     await expect(page.locator('[data-test="start-races"]')).toBeVisible();
     
-    // Start races button should be disabled initially
     await expect(page.locator('[data-test="start-races"]')).toBeDisabled();
     
-    // Check initial game status
     await expect(page.locator('[data-test="game-status"]')).toBeVisible();
   });
 
