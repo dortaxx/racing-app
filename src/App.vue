@@ -50,19 +50,6 @@ import RaceResults from './components/RaceResults.vue'
   to { text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3), 0 0 30px rgba(255, 215, 0, 0.8); }
 }
 
-.app-header h1 {
-  margin: 0 0 10px 0;
-  font-size: 2.5em;
-  font-weight: bold;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-}
-
-.app-header p {
-  margin: 0;
-  font-size: 1.1em;
-  opacity: 0.9;
-}
-
 .app-main {
   padding: 0 20px 40px 20px;
 }
@@ -72,25 +59,9 @@ import RaceResults from './components/RaceResults.vue'
   margin: 0 auto;
 }
 
-.app-footer {
-  text-align: center;
-  padding: 20px;
-  color: white;
-  opacity: 0.7;
-  font-size: 0.9em;
-}
-
-.app-footer p {
-  margin: 0;
-}
-
 @media (max-width: 768px) {
-  .app-header h1 {
-    font-size: 2em;
-  }
-  
-  .app-header p {
-    font-size: 1em;
+  .game-title {
+    font-size: 2.5rem;
   }
   
   .app-main {

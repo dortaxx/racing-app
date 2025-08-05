@@ -47,15 +47,12 @@ test.describe('Horse Racing Game E2E Tests', () => {
   });
 
   test('should start races and show progress', async ({ page }) => {
-
     await page.click('[data-test="generate-schedule"]');
     await expect(page.locator('[data-test="race-schedule"]')).toBeVisible();
 
     await page.click('[data-test="start-races"]');
 
-
     await expect(page.locator('[data-test="game-status"]')).toContainText('Racing Round', { timeout: 2000 });
-
 
     await expect(page.locator('[data-test="generate-schedule"]')).toBeDisabled();
     await expect(page.locator('[data-test="start-races"]')).toBeDisabled();
@@ -104,7 +101,6 @@ test.describe('Horse Racing Game E2E Tests', () => {
   test('should complete races and display results', async ({ page }) => {
     await page.click('[data-test="generate-schedule"]');
     await page.click('[data-test="start-races"]');
-    
 
     await expect(page.locator('[data-test="game-status"]')).toContainText('Racing Round', { timeout: 5000 });
 
@@ -114,7 +110,6 @@ test.describe('Horse Racing Game E2E Tests', () => {
     await expect(roundHeaders.first()).toBeVisible();
 
     await expect(roundHeaders.first()).toContainText('Round 1');
-
 
     const resultItems = page.locator('[data-test="result-item"]');
     await expect(resultItems.first()).toBeVisible();

@@ -21,7 +21,7 @@
         </button>
       </div>
       
-      <div class="game-status" data-test="game-status" v-if="hasSchedule || !hasSchedule">
+      <div class="game-status" data-test="game-status">
         <p><strong>Status:</strong> {{ gameStatus }}</p>
         <p v-if="currentRound > 0"><strong>Current Round:</strong> {{ currentRound }}/6</p>
       </div>
@@ -107,7 +107,7 @@ export default {
     const gameStatus = computed(() => {
       if (isGameRacing.value) {
         return `Racing Round ${currentRound.value}/6`
-      }``
+      }
       if (completedRounds.value === 6) {
         return 'All races completed!'
       }
