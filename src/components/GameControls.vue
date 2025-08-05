@@ -92,7 +92,7 @@ export default {
 
     const allHorses = computed(() => store.getters.allHorses)
     const hasSchedule = computed(() => store.getters.hasSchedule)
-    const isGameRacing = computed(() => store.getters.isGameRacing)
+    const isGameRacing = computed(() => store.getters['ui/isGameRacing'])
     const currentRound = computed(() => store.getters.currentRound)
     const currentRaceSchedule = computed(() => store.getters.currentRaceSchedule)
     const raceResults = computed(() => store.getters.raceResults)

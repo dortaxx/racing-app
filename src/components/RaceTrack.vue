@@ -54,7 +54,7 @@ export default {
 
     const currentRaceHorses = computed(() => store.getters.currentRaceHorses)
     const currentRound = computed(() => store.getters.currentRound)
-    const isRacing = computed(() => store.getters.isGameRacing)
+    const isRacing = computed(() => store.getters['ui/isGameRacing'])
     
     const currentDistance = computed(() => {
       const schedule = store.getters.currentRaceSchedule

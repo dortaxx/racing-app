@@ -8,49 +8,77 @@ describe('GameControls Component', () => {
   let store;
 
   const mockStoreConfig = {
-    state: {
-      horses: [],
-      raceSchedule: [],
-      currentRound: 0,
-      isRacing: false,
-      raceResults: [],
-      currentRaceHorses: [],
-      raceProgress: {}
-    },
-    mutations: {
-      SET_HORSES: (state, horses) => { state.horses = horses; },
-      SET_RACE_SCHEDULE: (state, schedule) => { state.raceSchedule = schedule; },
-      SET_IS_RACING: (state, isRacing) => { state.isRacing = isRacing; },
-      SET_CURRENT_ROUND: (state, round) => { state.currentRound = round; }
-    },
-    actions: {
-      generateHorses: ({ commit }) => {
-        const mockHorses = Array.from({ length: 20 }, (_, i) => ({
-          id: i + 1,
-          name: `Horse ${i + 1}`,
-          color: '#FF0000',
-          condition: 80 + i
-        }));
-        commit('SET_HORSES', mockHorses);
+    modules: {
+      horses: {
+        namespaced: false,
+        state: { horses: [] },
+        mutations: {
+          SET_HORSES: (state, horses) => { state.horses = horses; }
+        },
+        actions: {
+          generateHorses: ({ commit }) => {
+            const mockHorses = Array.from({ length: 20 }, (_, i) => ({
+              id: i + 1,
+              name: `Horse ${i + 1}`,
+              color: '#FF0000',
+              condition: 80 + i
+            }));
+            commit('SET_HORSES', mockHorses);
+          }
+        },
+        getters: {
+          allHorses: state => state.horses
+        }
       },
-      generateRaceSchedule: ({ commit, dispatch }) => {
-        dispatch('generateHorses');
-        const mockSchedule = Array.from({ length: 6 }, (_, i) => ({
-          round: i + 1,
-          distance: 1200 + (i * 200),
-          horses: []
-        }));
-        commit('SET_RACE_SCHEDULE', mockSchedule);
+      races: {
+        namespaced: false,
+        state: {
+          raceSchedule: [],
+          currentRound: 0,
+          raceResults: [],
+          currentRaceHorses: [],
+          raceProgress: {}
+        },
+        mutations: {
+          SET_RACE_SCHEDULE: (state, schedule) => { state.raceSchedule = schedule; },
+          SET_CURRENT_ROUND: (state, round) => { state.currentRound = round; },
+          RESET_RACE_DATA: (state) => {
+            state.currentRound = 0;
+            state.raceResults = [];
+            state.currentRaceHorses = [];
+            state.raceProgress = {};
+          }
+        },
+        actions: {
+          generateRaceSchedule: ({ commit, dispatch }) => {
+            dispatch('generateHorses');
+            const mockSchedule = Array.from({ length: 6 }, (_, i) => ({
+              round: i + 1,
+              distance: 1200 + (i * 200),
+              horses: []
+            }));
+            commit('SET_RACE_SCHEDULE', mockSchedule);
+            commit('RESET_RACE_DATA');
+          },
+          startRaces: () => {}
+        },
+        getters: {
+          hasSchedule: state => state.raceSchedule.length > 0,
+          currentRound: state => state.currentRound,
+          currentRaceSchedule: state => state.raceSchedule,
+          raceResults: state => state.raceResults
+        }
       },
-      startRaces: () => {}
-    },
-    getters: {
-      allHorses: state => state.horses,
-      hasSchedule: state => state.raceSchedule.length > 0,
-      isGameRacing: state => state.isRacing,
-      currentRound: state => state.currentRound,
-      currentRaceSchedule: state => state.raceSchedule,
-      raceResults: state => state.raceResults
+      ui: {
+        namespaced: true,
+        state: { isRacing: false },
+        mutations: {
+          SET_IS_RACING: (state, isRacing) => { state.isRacing = isRacing; }
+        },
+        getters: {
+          isGameRacing: state => state.isRacing
+        }
+      }
     }
   };
 
@@ -109,7 +137,7 @@ describe('GameControls Component', () => {
 
     it('should disable both buttons during racing', async () => {
       await store.dispatch('generateRaceSchedule');
-      store.commit('SET_IS_RACING', true);
+      store.commit('ui/SET_IS_RACING', true);
       await wrapper.vm.$nextTick();
       
       const generateButton = wrapper.find('[data-test="generate-schedule"]');
