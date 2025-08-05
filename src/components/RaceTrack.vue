@@ -206,8 +206,9 @@ export default {
   align-items: center;
   justify-content: center;
   font-size: 16px;
-  transition: left 0.1s linear;
+  transition: left 0.15s ease-out;
   border: 2px solid #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  will-change: left;
 }
 </style>

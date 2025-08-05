@@ -89,26 +89,28 @@ const actions = {
       return new Promise(resolve => {
         const speed = calculateRaceSpeed(horse, race.distance)
         const totalTime = race.distance / speed
-        const steps = 100
-        const stepTime = totalTime / steps
+        const steps = 60
+        const stepTime = 100
         let currentStep = 0
 
         const interval = setInterval(() => {
           currentStep++
-          const progress = currentStep / steps
+          const progress = (currentStep / steps) * (speed / 2.5)
+          const position = Math.min(progress * 100, 100)
+          
           commit('UPDATE_HORSE_POSITION', {
             horseId: horse.id,
-            position: progress * 100
+            position: position
           })
 
-          if (currentStep >= steps) {
+          if (position >= 100) {
             clearInterval(interval)
             resolve({
               horse,
               finishTime: totalTime
             })
           }
-        }, stepTime * 10)
+        }, stepTime)
       })
     })
 
