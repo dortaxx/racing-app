@@ -22,7 +22,7 @@ describe('Basic Application Health Check', () => {
       { id: 2, name: 'Horse 2', condition: 92 },
       { id: 3, name: 'Horse 3', condition: 78 }
     ];
-    
+
     const sortedByCondition = horses.slice().sort((a, b) => b.condition - a.condition);
     expect(sortedByCondition[0].name).toBe('Horse 2');
     expect(sortedByCondition[0].condition).toBe(92);
@@ -32,7 +32,7 @@ describe('Basic Application Health Check', () => {
     const items = Array.from({ length: 20 }, (_, i) => i + 1);
     const shuffled = items.slice().sort(() => 0.5 - Math.random());
     const selected = shuffled.slice(0, 10);
-    
+
     expect(selected).toHaveLength(10);
     expect(selected.every(item => items.includes(item))).toBe(true);
   });
