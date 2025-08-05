@@ -67,13 +67,18 @@
             <span class="round-distance">{{ round.distance }}m</span>
           </div>
           <div class="round-horses">
-            <span 
-              v-for="horse in round.horses" 
+            <div 
+              v-for="(horse, index) in round.horses" 
               :key="horse.id"
-              class="horse-dot"
-              :style="{ backgroundColor: horse.color }"
-              :title="horse.name"
-            ></span>
+              class="schedule-horse"
+            >
+              <span class="horse-position">{{ index + 1 }}</span>
+              <div 
+                class="horse-dot"
+                :style="{ backgroundColor: horse.color }"
+              ></div>
+              <span class="horse-name-small">{{ horse.name }}</span>
+            </div>
           </div>
         </div>
       </div>
@@ -322,14 +327,38 @@ export default {
 .round-horses {
   display: flex;
   flex-wrap: wrap;
+  gap: 6px;
+  max-width: 350px;
+}
+
+.schedule-horse {
+  display: flex;
+  align-items: center;
   gap: 4px;
+  margin-bottom: 2px;
+}
+
+.horse-position {
+  font-size: 9px;
+  color: #666;
+  font-weight: 600;
+  min-width: 12px;
+  text-align: right;
 }
 
 .horse-dot {
-  width: 12px;
-  height: 12px;
+  width: 10px;
+  height: 10px;
   border-radius: 50%;
   border: 1px solid white;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  flex-shrink: 0;
+}
+
+.horse-name-small {
+  font-size: 9px;
+  color: #555;
+  font-weight: 500;
+  white-space: nowrap;
 }
 </style>
