@@ -123,6 +123,15 @@ export default {
 
     const startRaces = () => {
       store.dispatch('startRaces')
+      setTimeout(() => {
+        const raceTrack = document.querySelector('.race-track')
+        if (raceTrack) {
+          raceTrack.scrollIntoView({ 
+            behavior: 'smooth', 
+            block: 'center' 
+          })
+        }
+      }, 500)
     }
 
     onMounted(() => {
